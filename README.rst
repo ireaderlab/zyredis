@@ -26,3 +26,11 @@ zyredis yet another redis client that support failover and codis
 当前版本
 --------
 - v0.1.3 完全支持redis failover机制，兼容redis所有原生命令，python版本codis客户端，额外提供pythonic的数据结构
+
+配置举例
+--------
+![qconf_example](example/qconf_example.png)
+
+配置管理中心页面展示
+--------
+![qconf_manager](example/qconf_manager.jpg)
