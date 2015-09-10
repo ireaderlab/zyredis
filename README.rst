@@ -1,5 +1,5 @@
 =======
-zyredis
+zyredis yet another redis client that support failover and codis 
 =======
 掌阅科技python接入redis客户端
 
@@ -18,9 +18,10 @@ zyredis
 
 项目依赖
 --------
-- QConf （https://github.com/Qihoo360/QConf）
+- [QConf](https://github.com/Qihoo360/QConf)
 - QConf python client目前已经集成到本目录代码中，zyredis/utils/qconf_py.so是通过QConf项目编译的python客户端
-- redis client （https://github.com/andymccurdy/redis-py）
+- [redis client](https://github.com/andymccurdy/redis-py)
+- [Codis](https://github.com/wandoulabs/codis)
 
 当前版本
 --------
