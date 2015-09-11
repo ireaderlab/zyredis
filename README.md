@@ -34,9 +34,19 @@ zyredis yet another redis client that support failover and codis
 配置举例
 --------
 
-![qconf_example](example/qconf_example.png)
+![qconf_example](docs/images/qconf_example.png)
 
 配置管理中心页面展示
 --------
 
-![qconf_manager](example/qconf_manager.jpg)
+![qconf_manager](docs/images/qconf_manager.jpg)
+
+安装
+--------
+
+```
+git clone https://github.com/ireaderlab/zyredis.git
+cd zyredis
+python setup.py install
+```
+
