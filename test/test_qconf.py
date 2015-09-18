@@ -35,7 +35,7 @@ class TestQconf(unittest.TestCase):
     def test_api(self):
         """测试基本api
         """
-        key = "/cps_group/service/codis"
+        key = "/test_group/service/codis"
         value = qconf.get_conf(key)
         keys = qconf.get_batch_keys(key)
         assert isinstance(keys, list)
@@ -45,7 +45,7 @@ class TestQconf(unittest.TestCase):
     def test_memleak_get_conf(self):
         """测试get_conf是否有内存泄露
         """
-        key = "/cps_group/service/codis"
+        key = "/test_group/service/codis"
         i = 0
         while i < 1:
             qconf.get_conf(key)
@@ -54,7 +54,7 @@ class TestQconf(unittest.TestCase):
     def test_memleak_get_batch_keys(self):
         """测试get_batch_keys是否有内存泄露
         """
-        key = "/cps_group/service/codis"
+        key = "/test_group/service/codis"
         i = 0
         while i < 1:
             qconf.get_batch_keys(key)
@@ -63,7 +63,7 @@ class TestQconf(unittest.TestCase):
     def test_memleak_get_batch_conf(self):
         """测试get_batch_conf是否有内存泄露
         """
-        key = "/cps_group/service/codis"
+        key = "/test_group/service/codis"
         i = 0
         while i < 1:
             qconf.get_batch_conf(key)
@@ -72,7 +72,7 @@ class TestQconf(unittest.TestCase):
     def test_diff_get_batch_conf(self):
         """批量获取对比接口测试
         """
-        key = "/cps_group/service/codis"
+        key = "/test_group/service/codis"
         children1 = qconf.get_batch_conf(key)
         children2 = get_qconf_data(key)
         assert len(children1) == len(children2)

@@ -38,9 +38,9 @@ logging.config.dictConfig(LOGGING)
 
 class BaseModel(Model):
 
-    client_name = "cps_codis"
+    client_name = "test_codis"
     db_num = 0
-    zk_path = "/cps_group/service/codis"
+    zk_path = "/test_group/service/codis"
 
 
 class TestModel(BaseModel):

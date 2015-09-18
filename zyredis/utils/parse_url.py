@@ -47,7 +47,3 @@ def parse_from_url(url):
     url_options['host'] = host
     url_options['port'] = port
     return url_options
-
-if __name__ == '__main__':
-    print parse_from_url("redis://192.168.6.184:8899/codis/db\n\n")
-    print parse_from_url("redis://192.168.6.184:8899/codis?db=0&weight=1\n\n")
