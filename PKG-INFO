@@ -1,33 +1,37 @@
 Metadata-Version: 1.0
 Name: zyredis
-Version: 0.1.3
+Version: 0.1.4
 Summary: ireader redis client
 Home-page: UNKNOWN
 Author: WangLichao
 Author-email: wanglichao@zhangyue.com
-License: UNKNOWN
+License: BSD
 Description: =======
         zyredis
         =======
-        信息化部python接入redis客户端
-        
+        ireader python接入redis客户端
+
         项目描述
         --------
         - 实现redis接入以及redis的failover机制
         - 实现redis客户端级别的负载均衡
         - 解决长连接失效后需要重启服务问题
         - 提供redis的基础model层
-        
+
         项目依赖
         --------
         - QConf agent
         - QConf python client
         - redis client
-        
+
         版本变更
         --------
-        
+
         - v0.0.1
         提供基本功能与failover机制
-        
+        - v0.1.3
+        解决qconf的python包内存泄露，增加SortedSet初始化对dict类型支持
+        - v0.1.4
+	完善文档以及使用举例，增加开源协议
+
 Platform: UNKNOWN

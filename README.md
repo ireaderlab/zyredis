@@ -54,10 +54,10 @@ python setup.py install
 -------
 
 qconf对应zookeeper配置项路径：/test_group/service/codis
-该路径下节点codis0的值为：redis://192.168.6.184:6389/test_cache?weight=1
-该路径下节点codis1的值为：redis://192.168.6.181:6339/test_cache?weight=3
-该路径下节点codis2的值为：redis://192.168.6.181:6339/test_db?weight=1
-该路径下节点codis3的值为：redis://192.168.6.181:6339/test_db?weight=2
+该路径下节点codis0的值为：redis://localhost:6389/test_cache?weight=1
+该路径下节点codis1的值为：redis://localhost:6339/test_cache?weight=3
+该路径下节点codis2的值为：redis://localhost:6339/test_db?weight=1
+该路径下节点codis3的值为：redis://localhost:6339/test_db?weight=2
 
 这样的配置项目声明了两种proxy的客户端分别为用做缓存的test_cache和用做db的test_db
 ```
@@ -112,4 +112,4 @@ class TestDbModel(BaseDbModel):
 
 开源协议
 -------
-本软件使用FreeBSD协议开源，任何人可以修改clone修改源码，但是需保留Copyright信息
+本软件使用FreeBSD协议开源，任何人可以使用或者修改代码，但是需保留Copyright信息
