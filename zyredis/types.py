@@ -391,6 +391,9 @@ class SortedSet(Type):
     def update(self, iterable):
         """update
         """
+        # support dict type
+        if isinstance(iterable, dict):
+            iterable = iterable.iteritems()
         for member, score in iterable:
             self.add(member, score)
 

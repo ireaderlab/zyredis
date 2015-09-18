@@ -35,8 +35,8 @@ LOGGING = {
 
 logging.config.dictConfig(LOGGING)
 
-CODIS_CLI = zyredis.Client('192.168.6.184', 6389, transaction=False)
-CLI = zyredis.Client('192.168.6.184', 6389, transaction=True)
+CODIS_CLI = zyredis.Client('localhost', 6389, transaction=False)
+CLI = zyredis.Client('localhost', 6389, transaction=True)
 
 
 class TestClient(unittest.TestCase):
@@ -46,8 +46,8 @@ class TestClient(unittest.TestCase):
     def setUp(self):
         """setup
         """
-        self.db = zyredis.Client(host='192.168.6.184', port=6389, serializer=JSON(), transaction=True)
-        self.codis_db = zyredis.Client(host='192.168.6.184', port=6389, serializer=JSON(), transaction=False)
+        self.db = zyredis.Client(host='localhost', port=6389, serializer=JSON(), transaction=True)
+        self.codis_db = zyredis.Client(host='localhost', port=6389, serializer=JSON(), transaction=False)
 
     # string type
     def test_string(self):

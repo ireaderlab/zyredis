@@ -56,7 +56,7 @@ setup_args = {
     'name': 'zyredis',
     'version': __version__,
     'description': 'ireader redis client',
-    'long_description': open('README.rst').read(),
+    'long_description': open('README.md').read(),
     'author': 'WangLichao',
     'author_email': "wanglichao@zhangyue.com",
     'packages': packages,
