@@ -1,7 +1,7 @@
 =======
 zyredis yet another redis client that support failover and codis
 =======
-掌阅科技python接入redis客户端
+iReader python接入redis客户端
 
 项目描述
 --------
@@ -29,17 +29,8 @@ zyredis yet another redis client that support failover and codis
 当前版本
 --------
 
-- v0.1.3 完全支持redis failover机制，兼容redis所有原生命令，python版本codis客户端，额外提供pythonic的数据结构
+- v0.1.4 完全支持redis failover机制，兼容redis所有原生命令，python版本codis客户端，额外提供pythonic的数据结构，支持redis的odm
 
-配置举例
---------
-
-![qconf_example](docs/images/qconf_example.png)
-
-配置管理中心页面展示
---------
-
-![qconf_manager](docs/images/qconf_manager.jpg)
 
 安装
 --------
@@ -112,4 +103,4 @@ class TestDbModel(BaseDbModel):
 
 开源协议
 -------
-本软件使用FreeBSD协议开源，任何人可以使用或者修改代码，但是需保留Copyright信息
+本软件使用FreeBSD协议开源
