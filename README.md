@@ -1,5 +1,5 @@
 =======
-zyredis yet another redis client that support failover and codis
+zyredis yet another redis client that support failover and codis, zyredis is also a redis orm that supports define redis model
 =======
 iReader python接入redis客户端
 
@@ -17,6 +17,10 @@ iReader python接入redis客户端
 
 - 服务线上所有redis的接入，日请求量大于5亿
 - failover机制可以灵活切换redis proxy，并配置不同不服务器的负载
+
+项目架构图
+--------
+![architecture](docs/zyredis_architecture.png)
 
 项目依赖
 --------
@@ -73,7 +77,7 @@ class TestCacheModel(BaseCacheModel):
     prefix = "wlctest"
 
     def set_key(self, arg1, arg2, val):
-    	# redis key = wlctest_{arg1}_{arg2} 默认使用下划线连接
+        # redis key = wlctest_{arg1}_{arg2} 默认使用下划线连接
         self.db[self.key[arg1][arg2]] = val
 
     def set_key1(self, arg1, val):
