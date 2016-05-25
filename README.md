@@ -18,16 +18,12 @@ iReader python接入redis客户端
 - 服务线上所有redis的接入，日请求量大于5亿
 - failover机制可以灵活切换redis proxy，并配置不同不服务器的负载
 
-项目架构图
---------
-![architecture](docs/zyredis_architecture.png)
-
 项目依赖
 --------
 
 - [QConf](https://github.com/Qihoo360/QConf) 可以用也可以不用，非必须依赖
 - QConf python client目前已经集成到本目录代码中，zyredis/utils/qconf_py.so是通过QConf项目编译的python客户端，可以用也可以不用，非必须依赖
-- [redis client](https://github.com/andymccurdy/redis-py) 必须项
+- [redis client](https://github.com/andymccurdy/redis-py) 必须依赖
 - [Codis](https://github.com/wandoulabs/codis)  如果使用codis的话可以参考，非必须依赖项
 
 当前版本
