@@ -7,7 +7,7 @@ from zyredis.types import *
 from zyredis.manager import RedisManager
 from zyredis.model import Model
 
-__version__ = '0.1.4'
+__version__ = '1.0.0'
 VERSION = tuple(map(int, __version__.split('.')))
 
 __all__ = [

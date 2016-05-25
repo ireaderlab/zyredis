@@ -52,8 +52,8 @@ class TestRedisManager(unittest.TestCase):
         """
         count = 0
         while True:
-            rm = RedisManager.instance().init("/test_group/service/test")
-            db = rm.select_db("test")
+            rm = RedisManager.instance().init_from_qconf("/test_group/service/codis")
+            db = rm.select_db("test_codis")
             db.set("wlctest", "wlctest")
             assert db.get("wlctest") == "wlctest"
             time.sleep(1)

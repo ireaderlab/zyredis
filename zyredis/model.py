@@ -24,14 +24,22 @@ class Model(object):
     db_num = 0
     prefix = ""
     zk_path = ""
+    init_from = "local"
     redis_manager = None
+    redis_conf = {
+        0: "redis://localhost:6371/myclient?weight=1&db=0&transaction=1",
+        1:"redis://localhost:6371/myclient?weight=1&db=1&transaction=0"
+    }
 
     @property
     def db(self):
         """当前使用的redis,RedisManager使用前需要进行初始化
         """
         if self.redis_manager is None:
-            self.redis_manager = RedisManager.instance().init(self.zk_path)
+            if self.init_from == "qconf":
+                self.redis_manager = RedisManager.instance().init_from_qconf(self.zk_path)
+            else:
+                self.redis_manager = RedisManager.instance().init_from_local(self.redis_conf)
         return self.redis_manager.select_db(self.client_name, self.db_num)
 
     @property

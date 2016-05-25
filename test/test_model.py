@@ -36,14 +36,24 @@ LOGGING = {
 logging.config.dictConfig(LOGGING)
 
 
-class BaseModel(Model):
+class BaseRedisModel(Model):
 
     client_name = "test_codis"
     db_num = 0
+    init_from = "local"
+    redis_conf = {
+        0:"redis://localhost:6389/test_codis?weight=1&transaction=1&db=0",
+    }
+
+
+class BaseQconfModel(Model):
+
+    client_name = "test_codis"
+    db_num = 0
+    init_from = "qconf"
     zk_path = "/test_group/service/codis"
 
-
-class TestModel(BaseModel):
+class TestQconfModel(BaseQconfModel):
 
     prefix = "wlctest"
 
@@ -60,7 +70,39 @@ class TestModel(BaseModel):
         return self.db.get(self.key[arg1])
 
 
-class TestNoPrefixModel(BaseModel):
+
+class TestModel(BaseRedisModel):
+
+    prefix = "wlctest"
+
+    def set_key(self, arg1, arg2, val):
+        self.db[self.key[arg1][arg2]] = val
+
+    def set_key1(self, arg1, val):
+        self.db.set(self.key[arg1], val)
+
+    def get_key(self, arg1, arg2):
+        return self.db[self.key[arg1][arg2]]
+
+    def get_key1(self, arg1):
+        return self.db.get(self.key[arg1])
+
+class TestNoPrefixQconfModel(BaseQconfModel):
+
+    def set_key(self, arg1, arg2, val):
+        self.db[self.key[arg1][arg2]] = val
+
+    def set_key1(self, arg1, val):
+        self.db.set(self.key[arg1], val)
+
+    def get_key(self, arg1, arg2):
+        return self.db[self.key[arg1][arg2]]
+
+    def get_key1(self, arg1):
+        return self.db.get(self.key[arg1])
+
+
+class TestNoPrefixModel(BaseRedisModel):
 
     def set_key(self, arg1, arg2, val):
         self.db[self.key[arg1][arg2]] = val
@@ -80,11 +122,33 @@ class TestRedisModel(unittest.TestCase):
     """测试redis manager基本用法
     """
 
-    def test_basic(self):
+    def test_redis_basic(self):
         """测试基本操作
         """
         i = 0
         tb = TestModel()
+        while i < 1:
+            tb.set_key("abc", "def", "value")
+            assert tb.key["abc"]["def"] == "wlctest_abc_def"
+            assert tb.get_key("abc", "def") == "value"
+            i = i + 1
+        tb.set_key1("ddd", "newvalue")
+        assert tb.key["ddd"] == "wlctest_ddd"
+        assert tb.get_key1("ddd") == "newvalue"
+        # 无前缀key测试
+        tb_noprefix = TestNoPrefixModel()
+        tb_noprefix.set_key("abc", "def", "value")
+        assert tb_noprefix.key["abc"]["def"] == "abc_def"
+        assert tb_noprefix.get_key("abc", "def") == "value"
+        tb_noprefix.set_key1("ddd", "newvalue")
+        assert tb_noprefix.key["ddd"] == "ddd"
+        assert tb_noprefix.get_key1("ddd") == "newvalue"
+
+    def test_qconf_basic(self):
+        """测试基本操作
+        """
+        i = 0
+        tb = TestQconfModel()
         while i < 1:
             tb.set_key("abc", "def", "value")
             assert tb.key["abc"]["def"] == "wlctest_abc_def"

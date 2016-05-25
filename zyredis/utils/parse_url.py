@@ -14,7 +14,7 @@ from urlparse import urlparse, parse_qs
 def parse_from_url(url):
     """从url解析配置信息
     Example:
-        url = "redis://host:port/client_name?db=0&weight=1"
+        url = "redis://host:port/client_name?db=0&weight=1&transaction=1"
         url = "redis://localhsot:6379/myredis?db=0&weight=1"
     Args:
         url: string
@@ -46,4 +46,5 @@ def parse_from_url(url):
     host, port = url.netloc.split(":") # 如果不符合规则抛出ValueError异常
     url_options['host'] = host
     url_options['port'] = port
+    url_options['transaction'] = int(url_options.get("transaction", 0))
     return url_options

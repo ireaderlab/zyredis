@@ -383,7 +383,7 @@ class Pipeline(object):
             key = args[0]
         except:
             raise ValueError("'%s' requires a key param as the first argument" % method)
-        if method.upper() in NOT_SUPPORT_COMMANDS:
+        if not self.transaction and method.upper() in NOT_SUPPORT_COMMANDS:
             LOG.error('%s is not supported by codis', method)
             raise NotSupportCommandError('method %s is not supported by codis, key=%s' % (method, key))
         # 执行codis

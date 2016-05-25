@@ -5,7 +5,7 @@
 Copyright (c) 2015,掌阅科技
 All rights reserved.
 
-摘    要: 管理redis实例，结合Qconf的failover机制实现
+摘    要: 管理redis实例
 创 建 者: WangLichao
 创建日期: 2015-08-19
 """
@@ -14,9 +14,9 @@ from zyredis.exceptions import ConfError
 from zyredis.client import Client
 from zyredis.utils.singleton import SingletonMixin
 from zyredis.utils import tree
-from zyredis.utils import qconf_py as qconf
 from zyredis.utils.parse_url import parse_from_url
 from zyredis.utils import LOG
+from zyredis.utils import qconf_py as qconf
 
 
 class RedisManager(SingletonMixin):
@@ -24,10 +24,19 @@ class RedisManager(SingletonMixin):
     """用于多个redis的ip:port的管理
     """
     redis_pool = tree.create_tree()
-    redis_conf = None
+    redis_local_flag = True
     zk_path = None
 
-    def init(self, zk_path):
+    def init_from_local(self, redis_conf):
+        """从配置中读取redis的配置"""
+        self.redis_local_flag = True
+        self.redis_conf = redis_conf
+        if not self.redis_pool:
+            self._init_from_conf()
+        return self
+
+    def init_from_qconf(self, zk_path):
+        self.redis_local_flag = False
         if self.zk_path is None:
             self.zk_path = zk_path
 
@@ -62,7 +71,9 @@ class RedisManager(SingletonMixin):
         """根据配置初始化redis客户端连接
         """
         self.redis_pool = tree.create_tree() # 重置redis_pool
-        self.redis_conf = self._get_conf()
+        # qconf的话特殊对待
+        if self.redis_local_flag is False:
+            self.redis_conf = self._get_conf()
         LOG.info("init redis conf, redis_conf=%s", self.redis_conf)
         for url in self.redis_conf.itervalues():
             options = parse_from_url(url)  # 如果url不符合标准将会直接ValueError异常
@@ -95,7 +106,8 @@ class RedisManager(SingletonMixin):
     def select_db(self, client_name, db=0):
         """根据client和db选择redis,根据weight配比随机选择
         """
-        self._do_check_conf()
+        if not self.redis_local_flag:
+            self._do_check_conf()
         if not self.redis_pool[client_name][db]:
             raise ConfError('Redis db Conf Error')
         return random.choice(self.redis_pool[client_name][db])
