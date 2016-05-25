@@ -25,10 +25,10 @@ iReader python接入redis客户端
 项目依赖
 --------
 
-- [QConf](https://github.com/Qihoo360/QConf)
-- QConf python client目前已经集成到本目录代码中，zyredis/utils/qconf_py.so是通过QConf项目编译的python客户端
-- [redis client](https://github.com/andymccurdy/redis-py)
-- [Codis](https://github.com/wandoulabs/codis)
+- [QConf](https://github.com/Qihoo360/QConf) 可以用也可以不用，非必须依赖
+- QConf python client目前已经集成到本目录代码中，zyredis/utils/qconf_py.so是通过QConf项目编译的python客户端，可以用也可以不用，非必须依赖
+- [redis client](https://github.com/andymccurdy/redis-py) 必须项
+- [Codis](https://github.com/wandoulabs/codis)  如果使用codis的话可以参考，非必须依赖项
 
 当前版本
 --------
@@ -49,24 +49,25 @@ python setup.py install
 -------
 
 - zyredis封装了pythonic的对象有以下几个
-    Client: 用于和redis进行交互的对象
-    Key: 提供了统一的key的封装方式
-    List: redis官方的List数据结构的封装，支持python原生的List方法
-    Set: redis官方的Set数据结构的封装，支持python原生的set操作方法
-    SortedSet: redis官方的SortedSet数据结构的封装
-    Dict: redis官方的Dict数据结构的封装，支持python原生的dict操作方法
-    ZSet: ZSet官方的zset数据结构的封装
-    Plain: 对写入redis的数据的默认编解码操作，Plain是不对数据进行处理
-    Pickler: 使用python的Cpickle对数据进行编解码
-    JSON: 使用JSON对写入和读取的数据进行编解码
-    NotSupportCommandError: 可能会触发的异常，codis客户端存在个别命令不支持，通过异常的方式进行抛出
-    Model: 所有的redis相关的操作都通过一个model进行交互
-    RedisManager: 管理所有redis的连接
+- Client: 用于和redis进行交互的对象
+- Key: 提供了统一的key的封装方式
+- List: redis官方的List数据结构的封装，支持python原生的List方法
+- Set: redis官方的Set数据结构的封装，支持python原生的set操作方法
+- SortedSet: redis官方的SortedSet数据结构的封装
+- Dict: redis官方的Dict数据结构的封装，支持python原生的dict操作方法
+- ZSet: ZSet官方的zset数据结构的封装
+- Plain: 对写入redis的数据的默认编解码操作，Plain是不对数据进行处理
+- Pickler: 使用python的Cpickle对数据进行编解码
+- JSON: 使用JSON对写入和读取的数据进行编解码
+- NotSupportCommandError: 可能会触发的异常，codis客户端存在个别命令不支持，通过异常的方式进行抛出
+- Model: 所有的redis相关的操作都通过一个model进行交互
+- RedisManager: 管理所有redis的连接
 
-- 使用zyredis的orm举例
-
-1. 如果使用纯粹redis的orm管理的话可以用下面举例的方式来创建BaseRedisModel
+使用zyredis的orm举例
+------
+- 如果使用纯粹redis的orm管理的话可以用下面举例的方式来创建BaseRedisModel
 ```python
+# 定义完redis的基础model后其他所有的model均继承自此model即可
 class BaseRedisModel(Model):
 
     client_name = "test_redis"
@@ -79,10 +80,7 @@ class BaseRedisModel(Model):
         1:"redis://localhost:6389/test_redis2?weight=3&transaction=1&db=0",
     }
 ```
-定义完redis的基础model后其他所有的model均继承自此model即可
-
-
-2. 如果使用qconf提供的配置项来做配置管理的话请参考下面配置
+- 如果使用qconf提供的配置项来做配置管理的话请参考下面配置
 qconf对应zookeeper配置项路径：/test_group/service/codis
 该路径下节点codis0的值为：redis://localhost:6389/test_cache?weight=1
 该路径下节点codis1的值为：redis://localhost:6339/test_cache?weight=3
