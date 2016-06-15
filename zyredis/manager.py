@@ -16,7 +16,10 @@ from zyredis.utils.singleton import SingletonMixin
 from zyredis.utils import tree
 from zyredis.utils.parse_url import parse_from_url
 from zyredis.utils import LOG
-from zyredis.utils import qconf_py as qconf
+try:
+    from zyredis.utils import qconf_py as qconf
+except:
+    pass
 
 
 class RedisManager(SingletonMixin):
